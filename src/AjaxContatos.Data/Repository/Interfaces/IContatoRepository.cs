@@ -11,7 +11,7 @@ namespace AjaxContatos.Data.Repository.Interfaces
     {
         void Adicionar(Contato contato);
         void Deletar(Guid id);
-        void Atualizar(Contato contato);
+        Contato Atualizar(Contato contato);
         List<Contato> BuscarTodosContatos();
         Contato BuscarPorId(Guid id);
     }

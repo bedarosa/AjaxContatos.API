@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,16 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapper\AutoMapperConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ContatoService.cs" />
     <Compile Include="Services\Interfaces\IContatoService.cs" />
     <Compile Include="ViewModel\ContatoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AjaxContatos.Data\AjaxContatos.Data.csproj">
+      <Project>{5c6404b9-69ea-45d7-9825-ea774577b1ef}</Project>
+      <Name>AjaxContatos.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AjaxContatos.Domain\AjaxContatos.Domain.csproj">
       <Project>{D47D6836-EFDC-4D77-BD12-1780A6806D16}</Project>
       <Name>AjaxContatos.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

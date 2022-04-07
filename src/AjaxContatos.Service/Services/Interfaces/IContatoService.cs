@@ -1,4 +1,5 @@
 ﻿using AjaxContatos.Domain.EntitiesBase;
+using AjaxContatos.Service.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace AjaxContatos.Service.Services.Interfaces
         void DeletarContato(Guid id);
         Contato Atualizar(Contato contato);
         Contato BuscarPorId(Guid id);
-        List<Contato> BuscarTodos();
+        List<ContatoViewModel> BuscarTodos();
     }
 }

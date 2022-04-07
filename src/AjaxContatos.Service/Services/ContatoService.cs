@@ -1,38 +1,46 @@
-﻿using AjaxContatos.Domain.EntitiesBase;
+﻿using AjaxContatos.Data.Repository.Interfaces;
+using AjaxContatos.Domain.EntitiesBase;
 using AjaxContatos.Service.Services.Interfaces;
+using AjaxContatos.Service.ViewModel;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AjaxContatos.Service.Services
 {
     public class ContatoService : IContatoService
     {
+        private readonly IContatoRepository _contatoRepository;
+        private readonly IMapper _mapper;
+        public ContatoService(IContatoRepository contatoRepository, IMapper mapper)
+        {
+            _contatoRepository = contatoRepository;
+            _mapper = mapper;
+        }
+
         public void AdicionarContato(Contato contato)
         {
-            throw new NotImplementedException();
+            _contatoRepository.Adicionar(contato);
         }
 
         public Contato Atualizar(Contato contato)
         {
-            throw new NotImplementedException();
+            return _contatoRepository.Atualizar(contato);
         }
 
         public Contato BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return _contatoRepository.BuscarPorId(id);
         }
 
-        public List<Contato> BuscarTodos()
+        public List<ContatoViewModel> BuscarTodos()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<List<ContatoViewModel>>(_contatoRepository.BuscarTodosContatos());
         }
 
         public void DeletarContato(Guid id)
         {
-            throw new NotImplementedException();
+            _contatoRepository.Deletar(id);
         }
     }
 }

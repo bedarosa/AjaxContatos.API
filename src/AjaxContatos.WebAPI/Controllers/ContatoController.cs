@@ -1,18 +1,22 @@
-﻿using AjaxContatos.Service.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using AjaxContatos.Service.Services.Interfaces;
+using Newtonsoft.Json;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace AjaxContatos.WebAPI.Controllers
 {
     public class ContatoController : ApiController
     {
-        public List<ContatoViewModel> Get()
+        private readonly IContatoService _contatoService;
+        public ContatoController(IContatoService contatoService)
         {
+            _contatoService = contatoService;
+        }
 
+        public string Get()
+        {
+            string json = JsonConvert.SerializeObject(_contatoService.BuscarTodos());
+            return json;
         }
     }
 }

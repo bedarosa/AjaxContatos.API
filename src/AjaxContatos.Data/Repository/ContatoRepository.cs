@@ -1,4 +1,5 @@
-﻿using AjaxContatos.Data.Repository.Interfaces;
+﻿using AjaxContatos.Data.Context;
+using AjaxContatos.Data.Repository.Interfaces;
 using AjaxContatos.Domain.EntitiesBase;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,38 @@ namespace AjaxContatos.Data.Repository
 {
     public class ContatoRepository : IContatoRepository
     {
-        public void Adicionar(Contato contato)
+        private readonly AjaxContatosContext _context;
+
+        public ContatoRepository(AjaxContatosContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public void Atualizar(Contato contato)
+        public void Adicionar(Contato contato)
+        {
+            _context.Contatos.Add(contato);
+            _context.SaveChanges();
+        }
+
+        public Contato Atualizar(Contato contato)
         {
             throw new NotImplementedException();
         }
 
         public Contato BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Contatos.Find(id);
         }
 
         public List<Contato> BuscarTodosContatos()
         {
-            throw new NotImplementedException();
+            return _context.Contatos.ToList();
         }
 
         public void Deletar(Guid id)
         {
-            throw new NotImplementedException();
+            _context.Contatos.Remove(BuscarPorId(id));
+            _context.SaveChanges();
         }
     }
 }
