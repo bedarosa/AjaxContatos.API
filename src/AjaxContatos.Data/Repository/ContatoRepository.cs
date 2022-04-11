@@ -3,6 +3,7 @@ using AjaxContatos.Data.Repository.Interfaces;
 using AjaxContatos.Domain.EntitiesBase;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,37 +13,39 @@ namespace AjaxContatos.Data.Repository
     public class ContatoRepository : IContatoRepository
     {
         private readonly AjaxContatosContext _context;
+        private DbSet<Contato> _dataSet;
 
         public ContatoRepository(AjaxContatosContext context)
         {
             _context = context;
+            _dataSet = context.Set<Contato>();
         }
 
-        public void Adicionar(Contato contato)
+        public async Task Adicionar(Contato contato)
         {
-            _context.Contatos.Add(contato);
-            _context.SaveChanges();
+            _dataSet.Add(contato);
+            await _context.SaveChangesAsync();
         }
 
-        public Contato Atualizar(Contato contato)
+        public async Task<Contato> Atualizar(Contato contato)
         {
             throw new NotImplementedException();
         }
 
-        public Contato BuscarPorId(Guid id)
+        public async Task<Contato> BuscarPorId(Guid id)
         {
-            return _context.Contatos.Find(id);
+            return await _dataSet.FindAsync(id);
         }
 
-        public List<Contato> BuscarTodosContatos()
+        public async Task<List<Contato>> BuscarTodosContatos()
         {
-            return _context.Contatos.ToList();
+            return await _dataSet.ToListAsync();
         }
 
-        public void Deletar(Guid id)
+        public async Task Deletar(Guid id)
         {
-            _context.Contatos.Remove(BuscarPorId(id));
-            _context.SaveChanges();
+            _context.Contatos.Remove(await _dataSet.FindAsync(id));
+            await _context.SaveChangesAsync();
         }
     }
 }

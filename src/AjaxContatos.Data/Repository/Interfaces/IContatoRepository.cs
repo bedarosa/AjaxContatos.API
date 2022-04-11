@@ -9,10 +9,10 @@ namespace AjaxContatos.Data.Repository.Interfaces
 {
     public interface IContatoRepository
     {
-        void Adicionar(Contato contato);
-        void Deletar(Guid id);
-        Contato Atualizar(Contato contato);
-        List<Contato> BuscarTodosContatos();
-        Contato BuscarPorId(Guid id);
+        Task Adicionar(Contato contato);
+        Task Deletar(Guid id);
+        Task<Contato> Atualizar(Contato contato);
+        Task<List<Contato>> BuscarTodosContatos();
+        Task<Contato> BuscarPorId(Guid id);
     }
 }

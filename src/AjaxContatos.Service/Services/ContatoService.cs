@@ -5,6 +5,7 @@ using AjaxContatos.Service.ViewModel;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AjaxContatos.Service.Services
 {
@@ -18,29 +19,30 @@ namespace AjaxContatos.Service.Services
             _mapper = mapper;
         }
 
-        public void AdicionarContato(Contato contato)
+        public async Task AdicionarContato(Contato contato)
         {
-            _contatoRepository.Adicionar(contato);
+            await _contatoRepository.Adicionar(contato);
         }
 
-        public Contato Atualizar(Contato contato)
+        public async Task<Contato> Atualizar(Contato contato)
         {
-            return _contatoRepository.Atualizar(contato);
+            return await _contatoRepository.Atualizar(contato);
         }
 
-        public Contato BuscarPorId(Guid id)
+        public async Task<Contato> BuscarPorId(Guid id)
         {
-            return _contatoRepository.BuscarPorId(id);
+            return await _contatoRepository.BuscarPorId(id);
         }
 
-        public List<ContatoViewModel> BuscarTodos()
+        public async Task<List<ContatoViewModel>> BuscarTodos()
         {
-            return _mapper.Map<List<ContatoViewModel>>(_contatoRepository.BuscarTodosContatos());
+            var contatos = _mapper.Map<List<ContatoViewModel>>(await _contatoRepository.BuscarTodosContatos());
+            return contatos;
         }
 
-        public void DeletarContato(Guid id)
+        public async Task DeletarContato(Guid id)
         {
-            _contatoRepository.Deletar(id);
+            await _contatoRepository.Deletar(id);
         }
     }
 }

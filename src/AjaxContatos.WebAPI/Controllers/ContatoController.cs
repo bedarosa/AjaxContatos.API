@@ -1,5 +1,8 @@
 ﻿using AjaxContatos.Service.Services.Interfaces;
+using AjaxContatos.Service.ViewModel;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 
@@ -13,10 +16,10 @@ namespace AjaxContatos.WebAPI.Controllers
             _contatoService = contatoService;
         }
 
-        public string Get()
+        public async Task<List<ContatoViewModel>> Get()
         {
-            string json = JsonConvert.SerializeObject(_contatoService.BuscarTodos());
-            return json;
+            var contatos = await _contatoService.BuscarTodos();
+            return contatos;
         }
     }
 }
