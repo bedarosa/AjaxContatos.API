@@ -19,19 +19,22 @@ namespace AjaxContatos.Service.Services
             _mapper = mapper;
         }
 
-        public async Task AdicionarContato(Contato contato)
+        public async Task AdicionarContato(ContatoViewModel contatoViewModel)
         {
-            await _contatoRepository.Adicionar(contato);
+            await _contatoRepository.Adicionar(_mapper.Map<Contato>(contatoViewModel));
         }
 
-        public async Task<Contato> Atualizar(Contato contato)
+        public async Task<ContatoViewModel> Atualizar(ContatoViewModel contatoViewModel)
         {
-            return await _contatoRepository.Atualizar(contato);
+
+            var contato = _mapper.Map<Contato>(contatoViewModel);
+            return _mapper.Map<ContatoViewModel>(await _contatoRepository.Atualizar(contato));
+
         }
 
-        public async Task<Contato> BuscarPorId(Guid id)
+        public async Task<ContatoViewModel> BuscarPorId(Guid id)
         {
-            return await _contatoRepository.BuscarPorId(id);
+            return _mapper.Map<ContatoViewModel>(await _contatoRepository.BuscarPorId(id));
         }
 
         public async Task<List<ContatoViewModel>> BuscarTodos()

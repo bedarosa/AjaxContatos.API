@@ -10,10 +10,10 @@ namespace AjaxContatos.Service.Services.Interfaces
 {
     public interface IContatoService
     {
-        Task AdicionarContato(Contato contato);
+        Task AdicionarContato(ContatoViewModel contatoViewModel);
         Task DeletarContato(Guid id);
-        Task<Contato> Atualizar(Contato contato);
-        Task<Contato> BuscarPorId(Guid id);
+        Task<ContatoViewModel> Atualizar(ContatoViewModel contatoViewModel);
+        Task<ContatoViewModel> BuscarPorId(Guid id);
         Task<List<ContatoViewModel>> BuscarTodos();
     }
 }

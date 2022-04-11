@@ -9,6 +9,9 @@ namespace AjaxContatos.Data.Mappings
         {
             HasKey(x => x.Id);
 
+            Property(x => x.Id)
+                .IsRequired();
+
             Property(x => x.Nome)
                 .IsRequired();
 

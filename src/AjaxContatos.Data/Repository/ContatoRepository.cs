@@ -23,13 +23,22 @@ namespace AjaxContatos.Data.Repository
 
         public async Task Adicionar(Contato contato)
         {
+            contato.Id = Guid.NewGuid();
             _dataSet.Add(contato);
             await _context.SaveChangesAsync();
         }
 
         public async Task<Contato> Atualizar(Contato contato)
         {
-            throw new NotImplementedException();
+            var dados = await BuscarPorId(contato.Id);
+            dados.Nome = contato.Nome;
+            dados.Telefone = contato.Telefone;
+            dados.Email = contato.Email;
+            dados.Cpf = contato.Cpf;
+
+            _context.Entry(dados);
+            await _context.SaveChangesAsync();
+            return contato;
         }
 
         public async Task<Contato> BuscarPorId(Guid id)
@@ -44,7 +53,7 @@ namespace AjaxContatos.Data.Repository
 
         public async Task Deletar(Guid id)
         {
-            _context.Contatos.Remove(await _dataSet.FindAsync(id));
+            _dataSet.Remove(await BuscarPorId(id));
             await _context.SaveChangesAsync();
         }
     }
